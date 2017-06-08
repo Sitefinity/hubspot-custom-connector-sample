@@ -46,7 +46,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         /// Initializes a new instance of the <see cref="HubSpotConnectorDataMappingExtender"/> class.
         /// </summary>
         public HubSpotConnectorDataMappingExtender()
-            : this(ObjectFactory.Resolve<HubSpotFormsCache>())
+            : this(ObjectFactory.Resolve<IHubSpotFormsCache>())
         {
         }
 

@@ -8,7 +8,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
     /// <summary>
     /// Contains methods for retrieving cached HubSpot forms.
     /// </summary>
-    internal class HubSpotFormsCache : IHubSpotFormsProvider
+    internal class HubSpotFormsCache : IHubSpotFormsCache
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HubSpotFormsCache"/> class.

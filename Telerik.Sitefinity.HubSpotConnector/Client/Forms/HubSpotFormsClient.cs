@@ -48,7 +48,6 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
                 throw new ArgumentNullException("formUrlBuilder");
             }
 
-            this.portalId = hubSpotConnectorConfig.HubSpotPortalId;
             this.apiKey = hubSpotConnectorConfig.HubSpotApiKey;
             this.formUrlBuilder = formUrlBuilder;
             this.httpClient = httpClient;
@@ -109,9 +108,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
 
         private readonly IFormUrlBuilder formUrlBuilder;
         private readonly HttpClient httpClient;
-        private readonly HubSpotConnectorConfig hubSpotConnectorConfig;
 
-        private readonly string portalId;
         private readonly string apiKey;
 
         private const string AcceptContentTypeHeaderValue = "application/json";

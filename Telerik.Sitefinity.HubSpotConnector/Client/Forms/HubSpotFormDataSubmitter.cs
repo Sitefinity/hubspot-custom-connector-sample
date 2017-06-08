@@ -89,7 +89,6 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
 
         private readonly IFormUrlBuilder formUrlBuilder;
         private readonly HttpClient httpClient;
-        private readonly HubSpotConnectorConfig hubSpotConnectorConfig;
 
         private readonly string portalId;
 

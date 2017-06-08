@@ -38,7 +38,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         /// Initializes a new instance of the <see cref="HubSpotConnectorFormDataSender"/> class.
         /// </summary>
         public HubSpotConnectorFormDataSender()
-            : this(ObjectFactory.Resolve<IHubSpotFormDataSubmitter>(), ObjectFactory.Resolve<HubSpotFormsCache>())
+            : this(ObjectFactory.Resolve<IHubSpotFormDataSubmitter>(), ObjectFactory.Resolve<IHubSpotFormsCache>())
         {
         }
 

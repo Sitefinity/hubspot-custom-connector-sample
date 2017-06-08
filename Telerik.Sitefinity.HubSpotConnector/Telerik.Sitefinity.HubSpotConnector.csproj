@@ -246,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CachedItemWrapper.cs" />
+    <Compile Include="Client\Forms\IHubSpotFormsCache.cs" />
     <Compile Include="Client\Forms\IHubSpotFormsProvider.cs" />
     <Compile Include="Client\Forms\HubSpotFormDataSubmitter.cs" />
     <Compile Include="Client\Forms\HubSpotFormsCache.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Services\HubSpotWebService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="SynchronizedCache.cs" />
+    <Compile Include="TrackingInitializer.cs" />
     <Compile Include="Web\UI\HubSpotConnectorSettings.cs" />
     <Compile Include="Web\UI\HubSpotScriptWidget.cs" />
   </ItemGroup>

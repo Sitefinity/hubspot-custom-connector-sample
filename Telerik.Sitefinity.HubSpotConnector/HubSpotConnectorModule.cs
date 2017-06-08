@@ -13,7 +13,6 @@ using Telerik.Sitefinity.HubSpotConnector.Web.Services;
 using Telerik.Sitefinity.HubSpotConnector.Web.UI;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.HubSpotConnector
 {
@@ -25,7 +24,10 @@ namespace Telerik.Sitefinity.HubSpotConnector
         /// <inheritdoc />
         public override Guid LandingPageId
         {
-            get { return PageId; }
+            get
+            {
+                return PageId;
+            }
         }
 
         /// <inheritdoc />
@@ -40,14 +42,6 @@ namespace Telerik.Sitefinity.HubSpotConnector
 
             base.Initialize(settings);
             this.RegisterIocTypes();
-        }
-
-        private bool ShouldRenderHubSpotScriptControl()
-        {
-            var module = SystemManager.GetModule(HubSpotConnectorModule.ModuleName);
-            var moduleEnabled = module != null && SystemManager.CurrentContext.CurrentSite.IsModuleAccessible(module);
-
-            return moduleEnabled && !SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
         }
 
         /// <summary>
@@ -70,6 +64,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
             {
                 if (this.HubSpotConfigHasRequiredSettings())
                 {
+                    this.InitializeTrackingInitializer();
                     this.InitializeFormDataSender();
                     this.InitializeHubSpotFormsCache();
                 }
@@ -82,6 +77,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
         /// </summary>
         public override void Unload()
         {
+            this.UninitializeTrackingInitializer();
             this.DisposeFormDataSender();
             this.DisposeSingletonInstances();
 
@@ -96,6 +92,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
         /// <param name="initializer">The site initializer instance.</param>
         public override void Uninstall(SiteInitializer initializer)
         {
+            this.UninitializeTrackingInitializer();
             this.DisposeFormDataSender();
             this.DisposeSingletonInstances();
 
@@ -153,6 +150,30 @@ namespace Telerik.Sitefinity.HubSpotConnector
         }
 
         /// <summary>
+        /// Uninitializes the local <see cref="TrackingInitializer"/>.
+        /// </summary>
+        private void InitializeTrackingInitializer()
+        {
+            if (this.trackingInitializer == null)
+            {
+                this.trackingInitializer = new TrackingInitializer();
+            }
+
+            this.trackingInitializer.Initialize();
+        }
+
+        /// <summary>
+        /// Uninitialize the local <see cref="TrackingInitializer"/>.
+        /// </summary>
+        private void UninitializeTrackingInitializer()
+        {
+            if (this.trackingInitializer != null)
+            {
+                this.trackingInitializer.Uninitialize();
+            }
+        }
+
+        /// <summary>
         /// Initializes the local <see cref="HubSpotConnectorFormDataSender"/>.
         /// </summary>
         private void InitializeFormDataSender()
@@ -168,7 +189,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
         {
             SystemManager.BackgroundTasksService.EnqueueTask(() =>
             {
-                HubSpotFormsCache hubSpotFormsCache = ObjectFactory.Resolve<HubSpotFormsCache>();
+                IHubSpotFormsCache hubSpotFormsCache = ObjectFactory.Resolve<IHubSpotFormsCache>();
                 hubSpotFormsCache.GetForms();
             });
         }
@@ -236,8 +257,6 @@ namespace Telerik.Sitefinity.HubSpotConnector
 
         private void RegisterIocTypes()
         {
-            SitefinityRequiredControls.RegisterControl(typeof(HubSpotScriptWidget), SitefinityRequiredControls.PageSection.Body, this.ShouldRenderHubSpotScriptControl);
-
             ObjectFactory.Container.RegisterType<FormsConnectorDesignerExtender, HubSpotFormsConnectorDesignerExtender>(HubSpotConnectorModule.ModuleName);
             ObjectFactory.Container.RegisterType<FormsConnectorDefinitionsExtender, HubSpotFormsConnectorDefinitionsExtender>(HubSpotConnectorModule.ModuleName);
             ObjectFactory.Container.RegisterType<ConnectorDataMappingExtender, HubSpotConnectorDataMappingExtender>(HubSpotConnectorModule.ModuleName);
@@ -247,7 +266,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
             this.containerControlledLifetimeManagers.Add(hubSpotFormsClientLifetimeManager);
 
             ContainerControlledLifetimeManager hubSpotFormsCacheLifetimeManager = new ContainerControlledLifetimeManager();
-            ObjectFactory.Container.RegisterType<HubSpotFormsCache, HubSpotFormsCache>(hubSpotFormsCacheLifetimeManager);
+            ObjectFactory.Container.RegisterType<IHubSpotFormsCache, HubSpotFormsCache>(hubSpotFormsCacheLifetimeManager);
             this.containerControlledLifetimeManagers.Add(hubSpotFormsCacheLifetimeManager);
 
             ContainerControlledLifetimeManager hubSpotFormSubmitterLifetimeManager = new ContainerControlledLifetimeManager();
@@ -267,6 +286,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
         private const string HubSpotConnectorConfigName = "HubSpotConnectorConfig";
 
         private HubSpotConnectorFormDataSender connectorFormDataSender;
+        private TrackingInitializer trackingInitializer;
         private IList<ContainerControlledLifetimeManager> containerControlledLifetimeManagers = new List<ContainerControlledLifetimeManager>();
     }
 }

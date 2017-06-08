@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Web.Services
         /// Initializes a new instance of the <see cref="HubSpotWebService"/> class.
         /// </summary>
         public HubSpotWebService()
-            : this(ObjectFactory.Resolve<HubSpotFormsCache>())
+            : this(ObjectFactory.Resolve<IHubSpotFormsCache>())
         {
         }
 

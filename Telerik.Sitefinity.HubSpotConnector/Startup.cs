@@ -2,6 +2,7 @@
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.HubSpotConnector
@@ -60,7 +61,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
                     Name = HubSpotConnectorModule.ModuleName,
                     Title = "Connector for HubSpot",
                     Description = "Provides integration between Sitefinity and HubSpot.",
-                    Type = "Telerik.Sitefinity.HubSpotConnector.HubSpotConnectorModule, Telerik.Sitefinity.HubSpotConnector",
+                    Type = typeof(HubSpotConnectorModule).AssemblyQualifiedName,
                     StartupType = StartupType.OnApplicationStart
                 });
 
