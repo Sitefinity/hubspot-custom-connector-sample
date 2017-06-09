@@ -147,7 +147,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
             {
                 try
                 {
-                    var result = this.cache[key] as CachedItemWrapper<T>;
+                    var result = this.cacheManager[key] as CachedItemWrapper<T>;
                     if (result != null)
                     {
                         return new CachedItemWrapper<T>() { Item = result.Item, AddedToCacheTimeStamp = result.AddedToCacheTimeStamp };
