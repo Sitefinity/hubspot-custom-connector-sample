@@ -14,6 +14,23 @@ namespace Telerik.Sitefinity.HubSpotConnector
     internal class SynchronizedCache<T> where T : class
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="SynchronizedCache&lt;T&gt;"/> class.
+        /// </summary>
+        public SynchronizedCache()
+            : this(SystemManager.GetCacheManager(CacheManagerInstance.Global))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SynchronizedCache&lt;T&gt;"/> class.
+        /// </summary>
+        /// <param name="cacheManager">The <see cref="ICacheManager"/> implementation that will be used to cache the data.</param>
+        public SynchronizedCache(ICacheManager cacheManager)
+        {
+            this.cacheManager = cacheManager;
+        }
+
+        /// <summary>
         /// Gets a cached item and updates the cached item if needed.
         /// </summary>
         /// <param name="key">The key of the item to be retrieved.</param>
@@ -79,14 +96,12 @@ namespace Telerik.Sitefinity.HubSpotConnector
                         {
                             this.isUpdatingCache = false;
                         }
-                            
                     }
                 }
                 finally
                 {
                     this.updatingCacheLock.ExitWriteLock();
                 }
-                    
             }
             else
             {
@@ -102,13 +117,13 @@ namespace Telerik.Sitefinity.HubSpotConnector
             {
                 try
                 {
-                    if (this.cache.Contains(key))
+                    if (this.cacheManager.Contains(key))
                     {
-                        this.cache.Remove(key);
+                        this.cacheManager.Remove(key);
                     }
 
                     var itemToCache = new CachedItemWrapper<T>() { Item = item, AddedToCacheTimeStamp = DateTime.UtcNow };
-                    this.cache.Add(key, itemToCache);
+                    this.cacheManager.Add(key, itemToCache);
                 }
                 finally
                 {
@@ -166,6 +181,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
         private bool isUpdatingCache = false;
         private ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
         private ReaderWriterLockSlim updatingCacheLock = new ReaderWriterLockSlim();
-        private ICacheManager cache = SystemManager.GetCacheManager(CacheManagerInstance.Global);
+        
+        private readonly ICacheManager cacheManager;
     }
 }

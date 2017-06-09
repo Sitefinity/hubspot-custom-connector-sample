@@ -46,7 +46,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         /// Initializes a new instance of the <see cref="HubSpotConnectorDataMappingExtender"/> class.
         /// </summary>
         public HubSpotConnectorDataMappingExtender()
-            : this(ObjectFactory.Resolve<IHubSpotFormsCache>())
+            : this(ObjectFactory.Resolve<IHubSpotFormsCache>(), Config.Get<HubSpotConnectorConfig>())
         {
         }
 
@@ -54,17 +54,17 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         /// Initializes a new instance of the <see cref="HubSpotConnectorDataMappingExtender"/> class.
         /// </summary>
         /// <param name="hubSpotFormsProvider">The <see cref="IHubSpotFormsProvider"/> instance that will be used in the class.</param>
-        internal HubSpotConnectorDataMappingExtender(IHubSpotFormsProvider hubSpotFormsProvider)
+        /// <param name="hubSpotConnectorConfig">The <see cref="HubSpotConnectorConfig"/> instance that will be used in the class.</param>
+        internal HubSpotConnectorDataMappingExtender(IHubSpotFormsProvider hubSpotFormsProvider, HubSpotConnectorConfig hubSpotConnectorConfig)
         {
             this.hubSpotFormsProvider = hubSpotFormsProvider;
+            this.hubSpotConnectorConfig = hubSpotConnectorConfig;
         }
 
         /// <inheritdoc />
         public override IEnumerable<string> GetAutocompleteData(string[] paramValues, string term)
         {
-            var hubSpotConfig = Config.Get<HubSpotConnectorConfig>();
-
-            if (!hubSpotConfig.Enabled || !paramValues.Any())
+            if (!this.hubSpotConnectorConfig.Enabled || !paramValues.Any())
             {
                 return null;
             }
@@ -93,7 +93,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
                 result = result.Where(f => f != null && f.Name.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
-            int take = hubSpotConfig.AutocompleteSuggestionsCount;
+            int take = this.hubSpotConnectorConfig.AutocompleteSuggestionsCount;
             if (take > 0)
             {
                 result = result.Take(take);
@@ -112,5 +112,6 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         }
 
         private readonly IHubSpotFormsProvider hubSpotFormsProvider;
+        private readonly HubSpotConnectorConfig hubSpotConnectorConfig;
     }
 }

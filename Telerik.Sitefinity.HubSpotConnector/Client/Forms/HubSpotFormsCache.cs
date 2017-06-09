@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Caching;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.HubSpotConnector.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
 {
@@ -14,18 +16,18 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
         /// Initializes a new instance of the <see cref="HubSpotFormsCache"/> class.
         /// </summary>
         public HubSpotFormsCache()
-            : this(ObjectFactory.Resolve<IHubSpotFormsClient>())
+            : this(ObjectFactory.Resolve<IHubSpotFormsClient>(), SystemManager.GetCacheManager(CacheManagerInstance.Global))
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HubSpotFormsCache"/> class.
         /// </summary>
-        /// <param name="hubSpotFormsClient">The <see cref="IHubSpotFormsClient"/> implementation that will be used to get non-cached data.</param>
-        internal HubSpotFormsCache(IHubSpotFormsProvider hubSpotFormsProvider)
+        /// <param name="hubSpotFormsProvider">The <see cref="IHubSpotFormsProvider"/> implementation that will be used to get non-cached data.</param>
+        internal HubSpotFormsCache(IHubSpotFormsProvider hubSpotFormsProvider, ICacheManager cacheManager)
         {
             this.hubSpotFormsProvider = hubSpotFormsProvider;
-            this.cachedForms = new SynchronizedCache<IEnumerable<HubSpotForm>>();
+            this.cachedForms = new SynchronizedCache<IEnumerable<HubSpotForm>>(cacheManager);
         }
 
         /// <inheritdoc/>
@@ -33,7 +35,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
         {
             try
             {
-                IEnumerable<HubSpotForm> forms = cachedForms.GetAndUpdateItem(HubSpotFormsCache.FormsCacheKey, () => this.hubSpotFormsProvider.GetForms());
+                IEnumerable<HubSpotForm> forms = this.cachedForms.GetAndUpdateItem(HubSpotFormsCache.FormsCacheKey, () => this.hubSpotFormsProvider.GetForms());
 
                 return forms;
             }
