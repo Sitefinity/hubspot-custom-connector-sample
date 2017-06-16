@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
@@ -10,6 +11,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
     /// <summary>
     /// Contains the application startup event handlers registering the required components for the packaging module of Sitefinity.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class Startup
     {
         /// <summary>

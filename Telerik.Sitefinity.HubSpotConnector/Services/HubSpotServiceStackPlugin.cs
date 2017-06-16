@@ -1,5 +1,6 @@
 ﻿using ServiceStack;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.HubSpotConnector.Web.Services.DTO;
 
 namespace Telerik.Sitefinity.HubSpotConnector.Web.Services
@@ -7,6 +8,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Web.Services
     /// <summary>
     /// Represents a HubSpot plug-in for the search web service.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal class HubSpotServiceStackPlugin : IPlugin
     {
         /// <summary>

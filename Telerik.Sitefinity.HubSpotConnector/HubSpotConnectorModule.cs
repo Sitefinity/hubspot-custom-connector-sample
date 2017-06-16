@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath.Configuration;
@@ -19,6 +20,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
     /// <summary>
     /// HubSpot connector module
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class HubSpotConnectorModule : ModuleBase
     {
         /// <inheritdoc />

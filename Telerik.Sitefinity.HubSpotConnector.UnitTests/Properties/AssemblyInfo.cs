@@ -1,17 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Web;
-using Telerik.Sitefinity.HubSpotConnector;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Telerik.Sitefinity.HubSpotConnector")]
+[assembly: AssemblyTitle("Telerik.Sitefinity.HubSpotConnector.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Telerik.Sitefinity.HubSpotConnector")]
+[assembly: AssemblyProduct("Telerik.Sitefinity.HubSpotConnector.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,10 +20,7 @@ using Telerik.Sitefinity.HubSpotConnector;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0bfeef1e-d293-4c41-a54a-3b468837a85a")]
-[assembly: PreApplicationStartMethod(typeof(Startup), "OnPreApplicationStart")]
-
-[assembly: InternalsVisibleTo("Telerik.Sitefinity.HubSpotConnector.UnitTests")]
+[assembly: Guid("70cec890-98ea-4994-a72e-40016f7e3249")]
 
 // Version information for an assembly consists of the following four values:
 //

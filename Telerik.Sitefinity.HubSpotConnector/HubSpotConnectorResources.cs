@@ -7,6 +7,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
     /// <summary>
     /// Localizable strings for the HubSpotConnector module
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [ObjectInfo("HubSpotConnectorResources", ResourceClassId = "HubSpotConnectorResources", Title = "HubSpotConnectorResourcesTitle", TitlePlural = "HubSpotConnectorResourcesTitlePlural", Description = "HubSpotConnectorResourcesDescription")]
     public class HubSpotConnectorResources : Resource
     {

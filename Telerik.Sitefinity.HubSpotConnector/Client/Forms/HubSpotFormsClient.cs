@@ -19,7 +19,6 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
         /// <summary>
         /// Initializes a new instance of the <see cref="HubSpotFormsClient"/> class.
         /// </summary>
-        [InjectionConstructor]
         public HubSpotFormsClient()
             : this(Config.Get<HubSpotConnectorConfig>(), new HttpClient(), new FormUrlBuilder())
         {

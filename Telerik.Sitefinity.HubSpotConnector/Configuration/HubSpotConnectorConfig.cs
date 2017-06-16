@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Localization;
 
@@ -8,6 +9,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Configuration
     /// <summary>
     /// Configuration file for HubSpotConnector
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class HubSpotConnectorConfig : ConfigSection
     {
         #region Properties

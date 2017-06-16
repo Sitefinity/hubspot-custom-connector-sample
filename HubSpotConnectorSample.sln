@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599692
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.HubSpotConnector", "Telerik.Sitefinity.HubSpotConnector\Telerik.Sitefinity.HubSpotConnector.csproj", "{B943491D-46EC-456B-BB0C-71F253379CFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.HubSpotConnector.UnitTests", "Telerik.Sitefinity.HubSpotConnector.UnitTests\Telerik.Sitefinity.HubSpotConnector.UnitTests.csproj", "{31E74CB6-4233-4026-B59A-B30D0C131E72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,12 @@ Global
 		{B943491D-46EC-456B-BB0C-71F253379CFB}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{B943491D-46EC-456B-BB0C-71F253379CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B943491D-46EC-456B-BB0C-71F253379CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Release Pro|Any CPU.Build.0 = Release|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31E74CB6-4233-4026-B59A-B30D0C131E72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
