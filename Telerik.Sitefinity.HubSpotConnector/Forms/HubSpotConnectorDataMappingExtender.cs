@@ -62,7 +62,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
         }
 
         /// <inheritdoc />
-        public override IEnumerable<string> GetAutocompleteData(string[] paramValues, string term)
+        public override IEnumerable<string> GetAutocompleteData(string term, string[] paramValues)
         {
             if (!this.hubSpotConnectorConfig.Enabled || !paramValues.Any())
             {

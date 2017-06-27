@@ -266,10 +266,7 @@
       <Name>Telerik.Sitefinity.HubSpotConnector</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FormUrlBuilderTests\" />
-    <Folder Include="HubSpotConnectorFormDataSenderTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
