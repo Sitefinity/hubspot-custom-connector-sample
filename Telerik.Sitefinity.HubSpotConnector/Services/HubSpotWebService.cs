@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using ServiceStack;
@@ -10,6 +11,7 @@ using Telerik.Sitefinity.HubSpotConnector.Configuration;
 using Telerik.Sitefinity.HubSpotConnector.Model;
 using Telerik.Sitefinity.HubSpotConnector.Web.Services.DTO;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.ServiceStack.Filters;
 
 namespace Telerik.Sitefinity.HubSpotConnector.Web.Services
@@ -84,19 +86,24 @@ namespace Telerik.Sitefinity.HubSpotConnector.Web.Services
                     testConnectionClient.GetForms();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Write(ex, TraceEventType.Error);
+
                 throw new Exception(Res.Get<Labels>().UnableToConnectCheckYourCredentials);
             }
 
             var configManager = ConfigManager.GetManager();
             var config = configManager.GetSection<HubSpotConnectorConfig>();
 
-            config.Enabled = true;
-            config.HubSpotPortalId = request.PortalId;
-            config.HubSpotApiKey = request.ApiKey;
+            if (config.HubSpotPortalId != request.PortalId || config.HubSpotApiKey != request.ApiKey)
+            {
+                config.Enabled = true;
+                config.HubSpotPortalId = request.PortalId;
+                config.HubSpotApiKey = request.ApiKey;
 
-            configManager.SaveSection(config, true);
+                configManager.SaveSection(config, true);
+            }
         }
 
         /// <summary>

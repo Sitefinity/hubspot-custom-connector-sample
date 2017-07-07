@@ -5,6 +5,7 @@ using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath.Configuration;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Connectivity;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.HubSpotConnector.Client.Forms;
@@ -64,6 +65,9 @@ namespace Telerik.Sitefinity.HubSpotConnector
         {
             if (e.CommandName == "Bootstrapped" && SystemManager.GetModule(HubSpotConnectorModule.ModuleName) != null)
             {
+                var configManager = ConfigManager.GetManager();
+                configManager.Provider.Executed += this.ConfigEventHandler;
+
                 if (this.HubSpotConfigHasRequiredSettings())
                 {
                     this.InitializeTrackingInitializer();
@@ -83,6 +87,9 @@ namespace Telerik.Sitefinity.HubSpotConnector
             this.DisposeFormDataSender();
             this.DisposeSingletonInstances();
 
+            var configManager = ConfigManager.GetManager();
+            configManager.Provider.Executed -= this.ConfigEventHandler;
+
             Bootstrapper.Initialized -= this.Bootstrapper_Initialized;
 
             base.Unload();
@@ -97,6 +104,9 @@ namespace Telerik.Sitefinity.HubSpotConnector
             this.UninitializeTrackingInitializer();
             this.DisposeFormDataSender();
             this.DisposeSingletonInstances();
+
+            var configManager = ConfigManager.GetManager();
+            configManager.Provider.Executed -= this.ConfigEventHandler;
 
             base.Uninstall(initializer);
         }
@@ -148,6 +158,30 @@ namespace Telerik.Sitefinity.HubSpotConnector
             get
             {
                 return new Type[0];
+            }
+        }
+
+        /// <summary>
+        /// Handles the event for config update.
+        /// </summary>
+        /// <param name="configEvent">The config change event args.</param>
+        private void ConfigEventHandler(object sender, ExecutedEventArgs e)
+        {
+            bool isHubSpotConfigUpdated = e.CommandArguments is HubSpotConnectorConfig;
+
+            if (!isHubSpotConfigUpdated)
+            {
+                return;
+            }
+
+            this.DisposeFormDataSender();
+            this.DisposeSingletonInstances();
+
+            if (this.HubSpotConfigHasRequiredSettings())
+            {
+                this.InitializeTrackingInitializer();
+                this.InitializeFormDataSender();
+                this.InitializeHubSpotFormsCache();
             }
         }
 

@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.HubSpotConnector.Client.Forms;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.HubSpotConnector.Model;
+using System.Diagnostics;
 
 namespace Telerik.Sitefinity.HubSpotConnector.Forms
 {
@@ -89,7 +90,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Forms
             }
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Log.Write(ex, TraceEventType.Error);
             }
         }
 

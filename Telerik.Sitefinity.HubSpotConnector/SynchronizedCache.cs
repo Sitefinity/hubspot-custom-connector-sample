@@ -90,7 +90,7 @@ namespace Telerik.Sitefinity.HubSpotConnector
                         }
                         catch (Exception ex)
                         {
-                            Log.Write(ex);
+                            Log.Write(ex, TraceEventType.Error);
                         }
                         finally
                         {

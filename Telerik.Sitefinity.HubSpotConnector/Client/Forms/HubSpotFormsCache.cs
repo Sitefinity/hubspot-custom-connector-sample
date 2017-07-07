@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Caching;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.HubSpotConnector.Model;
@@ -41,7 +42,7 @@ namespace Telerik.Sitefinity.HubSpotConnector.Client.Forms
             }
             catch (Exception ex)
             {
-                Log.Write(ex);
+                Log.Write(ex, TraceEventType.Error);
 
                 return null;
             }
