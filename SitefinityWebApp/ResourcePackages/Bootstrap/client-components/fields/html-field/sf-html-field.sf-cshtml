@@ -12,7 +12,7 @@
         msConvertLists: true,
         msTags: true,
         none: false,
-        span: false
+        span: true
     }",
     k-tools='[
     "formatting",
@@ -45,7 +45,7 @@
     },
     {
         name: "fullscreen",
-        template: "<a class=\"k-tool js-custom-tool custom-tool\" title=\"Fullscreen\" ng-click=\"toggleFullScreen()\"><span class=\"js-fullScreen sf-maximize\"></span></a>"
+        template: "<a class=\"k-tool js-custom-tool custom-tool\" title=\"@(Res.Get<ClientComponentsResources>().Fullscreen)\" ng-click=\"toggleFullScreen()\"><span class=\"js-fullScreen sf-maximize\"></span></a>"
     },
     {
         name: "htmlView",
